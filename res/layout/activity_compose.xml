@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/ivUserPic"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@android:drawable/picture_frame" />
+
+    <EditText
+        android:id="@+id/etComposeTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ivUserPic"
+        android:ems="6"
+        android:gravity="left"
+        android:hint="@string/tweet_hint"
+        android:inputType="textMultiLine"
+        android:lines="@integer/compose_height" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvUserFull"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@id/ivUserPic"
+        android:layout_toRightOf="@+id/ivUserPic"
+        android:text="@string/fullname_label" />
+
+    <TextView
+        android:id="@+id/tvUserHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/ivUserPic"
+        android:layout_below="@+id/tvUserFull"
+        android:layout_toRightOf="@+id/ivUserPic"
+        android:text="@string/foo_label"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#111111" />
+
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/miTop"
+        android:icon="@drawable/ic_top"
+        android:onClick="onTop"
+        android:showAsAction="always"
+        android:title="@string/top_label">
+    </item>
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/ic_action_compose"
+        android:onClick="onCompose"
+        android:showAsAction="always"
+        android:title="@string/compose">
+    </item>
+
+</menu>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/miTweet"
+        android:showAsAction="always|withText"
+        android:title="@string/tweet" android:icon="@drawable/ic_tweet">
+    </item>
+
+</menu>

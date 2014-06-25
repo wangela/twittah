@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="compose_height">10</integer>
+    <string name="LOAD_TIMELINE">"LOAD"</string>
+    <string name="MORE_TIMELINE">"MORE"</string>
+    <string name="REFRESH_TIMELINE">"REFRESH"</string>
+</resources>
