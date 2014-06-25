@@ -28,7 +28,7 @@ Optional user stories:
  * [ ] Advanced: Improve the user interface and theme the app to feel "twitter branded"
  * [ ] Bonus: User can see embedded image media within the tweet detail view
  * [ ] Bonus: Compose activity is replaced with a modal overlay
- * [ ] Bonus: Add "skip to top" button to jump to most recent tweet in home timeline
+ * [x] Extra: Add "skip to top" button to jump to most recent tweet in home timeline
 
 Notes:
 
