@@ -3,7 +3,7 @@
 twittah is an Android client for Twitter. This is a project for the CodePath Intro to Android Bootcamp which you can sign up for at (http://codepath.com/androidbootcamp).
 
 
-Time spent: 26 hours spent so far
+Time spent: 27 hours spent so far
 
 Required user stories:
 
@@ -32,7 +32,7 @@ Optional user stories:
 
 Notes:
 
-So much debugging related to the pagination using Twitter API params of since ID and max ID!
+I had so much debugging related to the pagination using Twitter API params of since ID and max ID!
 That took all my time, so will plan to implement offline persistence in a future week.
 
 Walkthrough of all user stories:
