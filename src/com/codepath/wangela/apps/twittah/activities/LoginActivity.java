@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.codepath.oauth.OAuthLoginActivity;
 import com.codepath.wangela.apps.twittah.R;
+import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
 
 public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
 

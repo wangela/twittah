@@ -26,7 +26,8 @@
 
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:theme="@style/Theme.Twittah" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,16 +46,18 @@
         </activity>
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.TimelineActivity"
-            android:label="@string/title_activity_timeline" >
+            android:label="@string/title_activity_timeline" 
+            android:theme="@style/Theme.Twittah" >
         </activity>
         <activity
-            android:name="com.codepath.wangela.apps.twittah.activities.Compose"
+            android:name="com.codepath.wangela.apps.twittah.activities.ComposeActivity"
             android:label="@string/title_activity_compose"
             android:parentActivityName="com.codepath.wangela.apps.twittah.activities.TimelineActivity" >
         </activity>
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.TweetDetailActivity"
-            android:label="@string/title_activity_tweet_detail" >
+            android:label="@string/title_activity_tweet_detail" 
+            android:theme="@style/Theme.Twittah" >
         </activity>
     </application>
 

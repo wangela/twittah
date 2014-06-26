@@ -2,6 +2,7 @@ package com.codepath.wangela.apps.twittah.activities;
 
 import android.content.Context;
 
+import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

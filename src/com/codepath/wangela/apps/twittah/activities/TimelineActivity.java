@@ -11,12 +11,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import com.activeandroid.util.Log;
 import com.codepath.wangela.apps.twittah.R;
-import com.codepath.wangela.apps.twittah.activities.models.Tweet;
 import com.codepath.wangela.apps.twittah.adapters.TweetArrayAdapter;
+import com.codepath.wangela.apps.twittah.helpers.EndlessScrollListener;
+import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
+import com.codepath.wangela.apps.twittah.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import eu.erikw.PullToRefreshListView;
@@ -66,6 +71,20 @@ public class TimelineActivity extends Activity {
 
                 lvTweets.onRefreshComplete();
             }
+        });
+        
+        lvTweets.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                Intent i = new Intent(getApplicationContext(),
+                        TweetDetailActivity.class);
+                Tweet selectedTweet = aTweets.getItem(position);
+                i.putExtra("tweet", selectedTweet);
+                startActivity(i);
+            }
+
         });
 
         aTweets.clear();
@@ -117,7 +136,7 @@ public class TimelineActivity extends Activity {
     }
 
     public void onCompose(MenuItem mi) {
-        Intent i = new Intent(this, Compose.class);
+        Intent i = new Intent(this, ComposeActivity.class);
         startActivityForResult(i, 18);
     }
 
