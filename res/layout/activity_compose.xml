@@ -6,10 +6,13 @@
 
     <ImageView
         android:id="@+id/ivUserPic"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
         android:src="@android:drawable/picture_frame" />
 
     <EditText
@@ -23,7 +26,8 @@
         android:gravity="left"
         android:hint="@string/tweet_hint"
         android:inputType="textMultiLine"
-        android:lines="@integer/compose_height" >
+        android:lines="@integer/compose_height"
+        android:textAppearance="?android:attr/textAppearance" >
 
         <requestFocus />
     </EditText>
@@ -34,8 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignTop="@id/ivUserPic"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/ivUserPic"
-        android:text="@string/fullname_label" />
+        android:text="@string/fullname_label"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvUserHandle"
@@ -46,6 +53,6 @@
         android:layout_toRightOf="@+id/ivUserPic"
         android:text="@string/foo_label"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#111111" />
+        android:textColor="#aaaaaa" />
 
 </RelativeLayout>
