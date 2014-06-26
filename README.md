@@ -3,7 +3,7 @@
 twittah is an Android client for Twitter. This is a project for the CodePath Intro to Android Bootcamp which you can sign up for at (http://codepath.com/androidbootcamp).
 
 
-Time spent: 27 hours spent so far
+Time spent: 31 hours spent so far
 
 Required user stories:
 
