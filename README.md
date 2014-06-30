@@ -3,7 +3,8 @@
 twittah is an Android client for Twitter. This is a project for the CodePath Intro to Android Bootcamp which you can sign up for at (http://codepath.com/androidbootcamp).
 
 
-Time spent: 31 hours spent so far
+Time spent: 31 hours spent in week 1
+             7 hours spent in week 2
 
 Required user stories:
 
@@ -33,15 +34,15 @@ Required user stories:
 
 Optional user stories:
  * [x] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
- * [ ] Advanced: User can open the twitter app offline and see last loaded tweets
-    * [ ] Tweets are persisted into sqlite and can be displayed from the local DB
+ * [x] Advanced: User can open the twitter app offline and see last loaded tweets
+    * [x] Tweets are persisted into sqlite and can be displayed from the local DB
  * [x] Advanced: User can tap a tweet to display a "detailed" view of that tweet
  * [x] Advanced: User can select "reply" from detail view to respond to a tweet
  * [x] Advanced: Improve the user interface and theme the app to feel "twitter branded"
  * [ ] Bonus: User can see embedded image media within the tweet detail view
  * [ ] Bonus: Compose activity is replaced with a modal overlay
  * [ ] Advanced: Robust error handling, check if internet is available, handle error cases, network failures
- * [ ] Advanced: When a network request is sent, user sees an indeterminate progress indicator
+ * [x] Advanced: When a network request is sent, user sees an indeterminate progress indicator
  * [x] Advanced: User can "reply" to any tweet on their home timeline
     * [x] The user that wrote the original tweet is automatically "@" replied in compose
  * [ ] Advanced: User can click on a tweet to be taken to a "detail view" of that tweet
