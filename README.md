@@ -4,7 +4,7 @@ twittah is an Android client for Twitter. This is a project for the CodePath Int
 
 
 Time spent: 31 hours spent in week 1
-             7 hours spent in week 2
+            19 hours spent in week 2
 
 Required user stories:
 
@@ -20,11 +20,12 @@ Required user stories:
     * [x] User is taken back to home timeline with new tweet visible in timeline
     * [x] Optional: User can see a counter with total number of characters left for tweet
     * [x] Optional: Total number of characters left turn red when user is close to reaching limit
+    * [x] Extra: Tweet button is disabled when tweet is over character limit
  * [ ] User can switch between Timeline and Mention views using tabs.
     * [ ] User can view their home timeline tweets.
     * [ ] User can view the recent mentions of their username.
     * [ ] User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
-    * [ ] Optional: Implement tabs in a gingerbread-compatible approach
+    * [x] Optional: Implement tabs in a gingerbread-compatible approach
  * [ ] User can navigate to view their own profile
     * [ ] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
  * [ ] User can click on the profile image in any tweet to see another user's profile.
@@ -50,7 +51,7 @@ Optional user stories:
  * [ ] Advanced: Improve the user interface and theme the app to feel twitter branded
  * [ ] Advanced: User can search for tweets matching a particular query and see results
  * [ ] Bonus: User can view their direct messages (or send new ones)
- * [x] Extra: User can click "skip to top" button to jump to most recent tweet in home timeline
+ * [x] Extra: User can click "skip to top" button to jump to most recent tweet in the currently viewed timeline
 
 Notes:
 
