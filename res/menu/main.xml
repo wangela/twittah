@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:twittah="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/miTop"
         android:icon="@drawable/ic_top"
-        android:onClick="onTop"
-        android:showAsAction="always"
-        android:title="@string/top_label">
+        android:title="@string/top_label"
+        twittah:showAsAction="always">
     </item>
     <item
         android:id="@+id/miCompose"
         android:icon="@drawable/ic_action_compose"
-        android:onClick="onCompose"
-        android:showAsAction="always"
-        android:title="@string/compose">
+        android:title="@string/compose"
+        twittah:showAsAction="always">
+    </item>
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_profile"
+        twittah:showAsAction="always"
+        android:title="@string/profile">
     </item>
 
 </menu>

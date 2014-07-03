@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -17,12 +17,22 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="Theme.Twittah" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/Theme.Twittah.ActionBar</item>
+    <style name="Theme.Twittah" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/TwittahActionBar</item>
+        <item name="android:actionMenuTextColor">@style/TwittahTitleText</item>
+        <item name="android:actionBarTabStyle">@style/TwittahTabText</item>
     </style>
 
-    <style name="Theme.Twittah.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <style name="TwittahActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:background">#00ACED</item>
+    </style>
+
+    <style name="TwittahTitleText" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TwittahTabText" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

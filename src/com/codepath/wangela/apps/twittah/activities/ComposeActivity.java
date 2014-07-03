@@ -66,7 +66,7 @@ public class ComposeActivity extends Activity {
         
         replyTweet = (Tweet) getIntent().getSerializableExtra("replyTo");
         if (replyTweet != null) {
-            params.put("in_reply_to_status_id", replyTweet.getId());
+            params.put("in_reply_to_status_id", replyTweet.getTid());
             etComposeTweet.setText("@" + replyTweet.getUser().getScreenname() + " ");
         }
         

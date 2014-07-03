@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_twittah"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar" >
         <meta-data
             android:name="AA_DB_NAME"
             android:value="RestClient.db" />
@@ -26,8 +26,7 @@
 
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.LoginActivity"
-            android:label="@string/app_name" 
-            android:theme="@style/Theme.Twittah" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,8 +45,7 @@
         </activity>
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.TimelineActivity"
-            android:label="@string/title_activity_timeline" 
-            android:theme="@style/Theme.Twittah" >
+            android:label="@string/title_activity_timeline">
         </activity>
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.ComposeActivity"
@@ -56,8 +54,7 @@
         </activity>
         <activity
             android:name="com.codepath.wangela.apps.twittah.activities.TweetDetailActivity"
-            android:label="@string/title_activity_tweet_detail" 
-            android:theme="@style/Theme.Twittah" >
+            android:label="@string/title_activity_tweet_detail">
         </activity>
     </application>
 

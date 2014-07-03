@@ -1,96 +1,20 @@
 
 package com.codepath.wangela.apps.twittah.activities;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import com.codepath.wangela.apps.twittah.R;
 
-import org.json.JSONArray;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 
-import com.activeandroid.util.Log;
-import com.codepath.wangela.apps.twittah.R;
-import com.codepath.wangela.apps.twittah.adapters.TweetArrayAdapter;
-import com.codepath.wangela.apps.twittah.helpers.EndlessScrollListener;
-import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
-import com.codepath.wangela.apps.twittah.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import eu.erikw.PullToRefreshListView;
-import eu.erikw.PullToRefreshListView.OnRefreshListener;
-
-public class TimelineActivity extends Activity {
-    private TwitterClient client;
-    private ArrayList<Tweet> tweets;
-    private ArrayAdapter<Tweet> aTweets;
-    private PullToRefreshListView lvTweets;
-    private String aMaxId = "0";
-    private String aSinceId = "0";
-
+public class TimelineActivity extends ActionBarActivity {
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        client = TwitterApplication.getRestClient();
-
-        lvTweets = (PullToRefreshListView) findViewById(R.id.lvTweets);
-        tweets = new ArrayList<Tweet>();
-        aTweets = new TweetArrayAdapter(this, tweets);
-        lvTweets.setAdapter(aTweets);
-
-        // Attach the listener to the AdapterView onCreate
-        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to your
-                // AdapterView
-                populateTimeline("MORE");
-
-            }
-        });
-
-        // Set a listener to be invoked when the list should be refreshed.
-        lvTweets.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Your code to refresh the list contents
-                // Make sure you call listView.onRefreshComplete()
-                // once the loading is done. This can be done from here or any
-                // place such as when the network request has completed
-                // successfully.
-                populateTimeline("REFRESH");
-
-                lvTweets.onRefreshComplete();
-            }
-        });
-        
-        lvTweets.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
-                Intent i = new Intent(getApplicationContext(),
-                        TweetDetailActivity.class);
-                Tweet selectedTweet = aTweets.getItem(position);
-                i.putExtra("tweet", selectedTweet);
-                startActivity(i);
-            }
-
-        });
-
-        aTweets.clear();
-        populateTimeline("LOAD");
-
-        Log.d("DEBUG", aMaxId);
     }
 
     @Override
@@ -99,40 +23,21 @@ public class TimelineActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-    /*
-     * public void populateTimeline(String since_id, String max_id) {
-     * client.getHomeTimeline(new JsonHttpResponseHandler() {
-     * @Override public void onSuccess(JSONArray array) {
-     * aTweets.addAll(Tweet.fromJsonArray(array)); }
-     * @Override public void onFailure(Throwable e, String s) { Log.d("ERROR",
-     * e.toString()); Log.d("ERROR", s); } }, since_id, max_id); }
-     */
-
-    public void populateTimeline(String code) {
-        client.getHomeTimeline(code, aSinceId, aMaxId, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONArray array) {
-                aTweets.addAll(Tweet.fromJsonArray(array));
-                aTweets.sort(new Comparator<Tweet>() {
-                    public int compare(Tweet object1, Tweet object2) {
-                        return object2.getId().compareTo(object1.getId());
-                    }
-                });
-                aTweets.notifyDataSetChanged();
-                if (aTweets.getCount() > 0) {
-                    int listSize = aTweets.getCount();
-                    listSize--;
-                    aSinceId = aTweets.getItem(0).getId();
-                    aMaxId = aTweets.getItem(listSize).getId();
-                    Log.d("DEBUG", aTweets.toString());
-                }
-            }
-
-            public void onFailure(Throwable e) {
-                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
-            }
-        });
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.miCompose:
+                onCompose(item);
+                return true;
+            case R.id.miTop:
+                onTop(item);
+                return true;
+            case R.id.miProfile:
+            	onProfile(item);
+            	return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void onCompose(MenuItem mi) {
@@ -141,15 +46,20 @@ public class TimelineActivity extends Activity {
     }
 
     public void onTop(MenuItem mi) {
-        lvTweets.setSelection(0);
+         // TODO call toTop in the active fragment
+    	// lvTweets.setSelection(0);
+    }
+    
+    public void onProfile(MenuItem mi) {
+    	// TODO launch PRofile activity
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // REQUEST_CODE is defined above
+        // TODO take tweet back from Compose screen and add to array, then refresh timeline
         if (resultCode == RESULT_OK && requestCode == 18) {
-            populateTimeline("REFRESH");
-            aSinceId = aTweets.getItem(0).getId();
+            // populateTimeline("REFRESH");
+            // aSinceId = aTweets.getItem(0).getId();
         }
     }
 }
