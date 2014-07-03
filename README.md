@@ -5,7 +5,7 @@ twittah is an Android client for Twitter. This is a project for the CodePath Int
 
 Time spent: 31 hours spent in week 1, 39 hours spent in week 2
 
-Required user stories:
+## Required user stories:
 
  * [x] Required: User can sign in to Twitter using OAuth login
  * [x] Required: User can view the tweets from their home timeline
@@ -32,7 +32,7 @@ Required user stories:
     * [ ] Profile view should include that user's timeline
     * [ ] Optional: User can view following / followers list through the profile
 
-Optional user stories:
+## Optional user stories:
  * [x] Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
  * [x] Advanced: User can open the twitter app offline and see last loaded tweets
     * [x] Tweets are persisted into sqlite and can be displayed from the local DB
@@ -49,17 +49,17 @@ Optional user stories:
  * [ ] Bonus: User can view their direct messages (or send new ones)
  * [x] Extra: User can click "skip to top" button to jump to most recent tweet in the currently viewed timeline
 
-Notes:
+## Notes:
 
 Had to disable ActionBar custom styling theme in order to prevent app crashes at login. Will revisit theme syntax to correct.
 
 Optimized pagination performance with ViewHolder pattern.
 
-Walkthrough of all user stories:
-Week 2 implementation:
+## Walkthrough of all user stories:  
+Week 2 implementation:  
 ![Video walkthrough](anim_twittah2.gif)
 
-Week 1 implementation:
+Week 1 implementation:  
 ![Video Walkthrough](anim_twittah.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
