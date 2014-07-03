@@ -9,16 +9,16 @@
         twittah:showAsAction="always">
     </item>
     <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile"
+        twittah:showAsAction="always">
+    </item>
+    <item
         android:id="@+id/miCompose"
         android:icon="@drawable/ic_action_compose"
         android:title="@string/compose"
         twittah:showAsAction="always">
-    </item>
-    <item
-        android:id="@+id/miProfile"
-        android:icon="@drawable/ic_profile"
-        twittah:showAsAction="always"
-        android:title="@string/profile">
     </item>
 
 </menu>

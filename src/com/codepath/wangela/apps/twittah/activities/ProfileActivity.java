@@ -17,6 +17,7 @@ public class ProfileActivity extends FragmentActivity {
 	private ImageView ivProfile;
 	private TextView tvProfileName;
 	private TextView tvDescription;
+	private TextView tvLocation;
 	private TextView tvFollowing;
 	private TextView tvFollowers;
 	private User user;
@@ -54,6 +55,7 @@ public class ProfileActivity extends FragmentActivity {
 		ivProfile = (ImageView) findViewById(R.id.ivProfile);
 		tvProfileName = (TextView) findViewById(R.id.tvProfileName);
 		tvDescription = (TextView) findViewById(R.id.tvDescription);
+		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		tvFollowing = (TextView) findViewById(R.id.tvFollowing);
 		tvFollowers = (TextView) findViewById(R.id.tvFollowers);
 		
@@ -62,6 +64,7 @@ public class ProfileActivity extends FragmentActivity {
 				ivProfile);
 		tvProfileName.setText(user.getName());
 		tvDescription.setText(user.getDescription());
+		tvLocation.setText(user.getLocation());
 		tvFollowing.setText(user.getFollowingCount() + " following");
 		tvFollowers.setText(user.getFollowersCount() + " followers");
 		getActionBar().setTitle("@" + user.getScreenname());

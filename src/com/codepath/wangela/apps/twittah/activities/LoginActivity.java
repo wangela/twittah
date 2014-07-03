@@ -3,6 +3,7 @@ package com.codepath.wangela.apps.twittah.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.oauth.OAuthLoginActivity;
@@ -44,7 +45,10 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
     // Uses the client to initiate OAuth authorization
     // This should be tied to a button used to login
     public void loginToRest(View view) {
+    	ProgressBar pb = (ProgressBar) findViewById(R.id.pbLogin);
+    	pb.setVisibility(ProgressBar.VISIBLE);
         getClient().connect();
+        pb.setVisibility(ProgressBar.INVISIBLE);
     }
 
 }

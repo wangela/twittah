@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import org.json.JSONArray;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +15,21 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 import com.codepath.wangela.apps.twittah.R;
-import com.codepath.wangela.apps.twittah.activities.TwitterApplication;
+import com.codepath.wangela.apps.twittah.activities.TweetDetailActivity;
 import com.codepath.wangela.apps.twittah.adapters.TweetArrayAdapter;
-import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
 import com.codepath.wangela.apps.twittah.listeners.EndlessScrollListener;
 import com.codepath.wangela.apps.twittah.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class TweetsListFragment extends Fragment {
 	private ArrayList<Tweet> tweets;
-	private ArrayAdapter<Tweet> aTweets;
-	private PullToRefreshListView lvTweets;
-//	private OnClickListener listener;
+	protected ArrayAdapter<Tweet> aTweets;
+	protected PullToRefreshListView lvTweets;
+
+
+	// private OnClickListener listener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +47,7 @@ public class TweetsListFragment extends Fragment {
 		// Inflate the layout
 		View v = inflater.inflate(R.layout.fragment_tweets_list, container,
 				false);
-		// Assign our view references
 		setupViews(v);
-	
 		return v;
 	}
 
@@ -60,33 +56,21 @@ public class TweetsListFragment extends Fragment {
 		lvTweets.setAdapter(aTweets);
 	}
 
+	// public interface OnClickListener {
+	// public void onShowDetailedTweet(Tweet selectedTweet);
+	// }
 
-	
-//	public interface OnClickListener {
-//		public void onShowDetailedTweet(Tweet selectedTweet);
-//	}
-	
-//	  @Override
-//	  public void onAttach(Activity activity) {
-//	    super.onAttach(activity);
-//	      if (activity instanceof OnClickListener) {
-//	        listener = (OnClickListener) activity;
-//	      } else {
-//	        throw new ClassCastException(activity.toString()
-//	            + " must implement TweetsListFragment.OnClickListener");
-//	      }
-//	  }
+	// @Override
+	// public void onAttach(Activity activity) {
+	// super.onAttach(activity);
+	// if (activity instanceof OnClickListener) {
+	// listener = (OnClickListener) activity;
+	// } else {
+	// throw new ClassCastException(activity.toString()
+	// + " must implement TweetsListFragment.OnClickListener");
+	// }
+	// }
 
-
-	public void populateFromDb() {
-		//		ProgressBar pb = (ProgressBar) this.getView().findViewById(R.id.pbHome);
-		//pb.bringToFront();
-		//pb.setVisibility(ProgressBar.VISIBLE);
-		notifyDataSetInvalidated();
-		List<Tweet> oldTweets = Tweet.findAll();
-		addAll((ArrayList<Tweet>) oldTweets);
-		//pb.setVisibility(ProgressBar.INVISIBLE);
-	}
 
 	// Delegate the methods to the internal adapter
 	public void addAll(ArrayList<Tweet> tweets) {

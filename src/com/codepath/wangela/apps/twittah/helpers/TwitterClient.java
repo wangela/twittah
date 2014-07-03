@@ -52,7 +52,6 @@ public class TwitterClient extends OAuthBaseClient {
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY,
 				REST_CONSUMER_SECRET, REST_CALLBACK_URL);
-		// getUserScreenname();
 	}
 
 	// public void getTimeline(String code, String timelineType, String sinceId,
@@ -128,21 +127,6 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiUrl, params, handler);
 	}
 
-	// private void getUserScreenname() {
-	// getUserProfile(new JsonHttpResponseHandler() {
-	// @Override
-	// public void onSuccess(org.json.JSONObject userObject) {
-	// User user = User.fromJson(userObject);
-	// userScreenname = user.getScreenname();
-	// };
-	//
-	// @Override
-	// public void onFailure(Throwable e, String s) {
-	// Log.d("ERROR", e.toString());
-	// Log.d("ERROR", s);
-	// };
-	// });
-	// }
 
 	public void getMyProfile(AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("account/verify_credentials.json");
@@ -151,7 +135,7 @@ public class TwitterClient extends OAuthBaseClient {
 
 	public void getUserProfile(String screenname,
 			AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("users/lookup.json");
+		String apiUrl = getApiUrl("users/lookup.json"); // Returns ARRAY not object
 		RequestParams params = new RequestParams();
 		params.put("screen_name", screenname);
 		client.get(apiUrl, params, handler);

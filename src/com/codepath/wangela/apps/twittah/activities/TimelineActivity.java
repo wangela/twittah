@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.codepath.wangela.apps.twittah.R;
 import com.codepath.wangela.apps.twittah.fragments.HomeTimelineFragment;
 import com.codepath.wangela.apps.twittah.fragments.MentionsTimelineFragment;
+import com.codepath.wangela.apps.twittah.fragments.TweetsListFragment;
 import com.codepath.wangela.apps.twittah.listeners.SupportFragmentTabListener;
 import com.codepath.wangela.apps.twittah.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -88,8 +89,10 @@ public class TimelineActivity extends ActionBarActivity {
     }
 
     public void onTop(MenuItem mi) {
-         // TODO call toTop in the active fragment
-    	// lvTweets.setSelection(0);
+    	// FIXME
+    	String activeTab = getActionBar().getSelectedTab().getTag().toString();
+    	TweetsListFragment timeline = (TweetsListFragment) getSupportFragmentManager().findFragmentByTag(activeTab);
+    	// timeline.toTop();
     }
     
     public void onProfile(MenuItem mi) {

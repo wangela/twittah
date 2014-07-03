@@ -26,6 +26,8 @@ public class User extends Model implements Serializable {
 	private String followingCount;
 	@Column(name = "FollowerCount")
 	private String followersCount;
+	@Column(name = "Location")
+	private String location;
 
 
 	public User() {
@@ -59,6 +61,10 @@ public class User extends Model implements Serializable {
 	public String getFollowersCount() {
 		return followersCount;
 	}	
+	
+	public String getLocation() {
+		return location;
+	}
 
 	// factory method User.fromJson(...)
 	public static User fromJson(JSONObject object) {
@@ -69,6 +75,7 @@ public class User extends Model implements Serializable {
 			u.screenname = object.getString("screen_name");
 			u.profileImageUrl = object.getString("profile_image_url");
 			u.description = object.getString("description");
+			u.location = object.getString("location");
 			u.followingCount = object.getString("friends_count");
 			u.followersCount = object.getString("followers_count");
 		} catch (JSONException e) {
