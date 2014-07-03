@@ -9,16 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
 
+import com.codepath.wangela.apps.twittah.R;
 import com.codepath.wangela.apps.twittah.activities.TwitterApplication;
 import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
-import com.codepath.wangela.apps.twittah.listeners.EndlessScrollListener;
 import com.codepath.wangela.apps.twittah.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
-
-import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class HomeTimelineFragment extends TweetsListFragment {
 	private TwitterClient client;
@@ -29,17 +26,27 @@ public class HomeTimelineFragment extends TweetsListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		client = TwitterApplication.getRestClient();
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_tweets_list, container,
+				false);
+		setupViews(v);
+		ProgressBar pb = (ProgressBar) v.findViewById(R.id.pbTimeline);
+		pb.bringToFront();
+		pb.setVisibility(ProgressBar.VISIBLE);
 		clear();
 		populateTimeline("LOAD");
+		pb.setVisibility(ProgressBar.INVISIBLE);
+		return v;
 		// setupListeners();
 	}
 
 	// public void setupListeners() {
 	//
 	public void populateTimeline(String code) {
-		// ProgressBar pb = (ProgressBar) getView().findViewById(R.id.pbHome);
-		// pb.bringToFront();
-		// pb.setVisibility(ProgressBar.VISIBLE);
 		client.getHomeTimeline(code, aSinceId, aMaxId, new JsonHttpResponseHandler() {
 					@Override
 					public void onSuccess(JSONArray array) {
@@ -66,6 +73,5 @@ public class HomeTimelineFragment extends TweetsListFragment {
 //						Log.d("ERROR", s);
 //					}
 				});
-		// pb.setVisibility(ProgressBar.INVISIBLE);
 	}
 }

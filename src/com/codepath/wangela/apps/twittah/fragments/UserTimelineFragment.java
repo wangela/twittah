@@ -1,4 +1,4 @@
-package com.codepath.wangela.apps.twittah.activities;
+package com.codepath.wangela.apps.twittah.fragments;
 
 import org.json.JSONArray;
 
@@ -7,9 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.codepath.wangela.apps.twittah.R;
-import com.codepath.wangela.apps.twittah.fragments.TweetsListFragment;
+import com.codepath.wangela.apps.twittah.activities.TwitterApplication;
 import com.codepath.wangela.apps.twittah.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -22,29 +23,29 @@ public class UserTimelineFragment extends TweetsListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		screenname = getArguments().getString("screen_name", "");
-		populateTimeline("LOAD");
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// Inflate the layout
 		View v = inflater.inflate(R.layout.fragment_tweets_list, container,
 				false);
-		// Assign our view references
 		setupViews(v);
-		//setupListeners();
-		
+		ProgressBar pb = (ProgressBar) v.findViewById(R.id.pbTimeline);
+		pb.bringToFront();
+		pb.setVisibility(ProgressBar.VISIBLE);
 		clear();
 		populateTimeline("LOAD");
-		Log.d("DEBUG", aUserMaxId);
+		pb.setVisibility(ProgressBar.INVISIBLE);
 		return v;
+		// setupListeners();
 	}
+
 	
-    public static UserTimelineFragment newInstance(String screenname) {
+    public static UserTimelineFragment newInstance(String sn) {
         UserTimelineFragment userTimeline = new UserTimelineFragment();
         Bundle args = new Bundle();
-        args.putString("screen_name", screenname);
+        args.putString("screen_name", sn);
         userTimeline.setArguments(args);
         return userTimeline;
     }

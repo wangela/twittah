@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.wangela.apps.twittah.R;
+import com.codepath.wangela.apps.twittah.fragments.UserTimelineFragment;
 import com.codepath.wangela.apps.twittah.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

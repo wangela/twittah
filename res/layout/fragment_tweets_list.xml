@@ -7,11 +7,14 @@
     <eu.erikw.PullToRefreshListView
         android:id="@+id/lvTweets"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" >
+        android:layout_height="wrap_content" >
     </eu.erikw.PullToRefreshListView>
+
+    <ProgressBar
+        android:id="@+id/pbTimeline"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </LinearLayout>
