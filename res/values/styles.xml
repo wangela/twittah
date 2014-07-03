@@ -17,12 +17,22 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="Theme.Twittah" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/Theme.Twittah.ActionBar</item>
+    <style name="Theme.Twittah" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/TwittahActionBar</item>
+        <item name="android:actionMenuTextColor">@style/TwittahTitleText</item>
+        <item name="android:actionBarTabStyle">@style/TwittahTabText</item>
     </style>
 
-    <style name="Theme.Twittah.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <style name="TwittahActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#00ACED</item>
+    </style>
+    
+        <style name="TwittahTitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    
+                <style name="TwittahTabText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
 </resources>

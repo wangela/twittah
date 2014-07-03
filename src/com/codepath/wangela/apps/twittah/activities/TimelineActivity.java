@@ -1,155 +1,131 @@
-
 package com.codepath.wangela.apps.twittah.activities;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import org.json.JSONObject;
 
-import org.json.JSONArray;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 
 import com.activeandroid.util.Log;
 import com.codepath.wangela.apps.twittah.R;
-import com.codepath.wangela.apps.twittah.adapters.TweetArrayAdapter;
-import com.codepath.wangela.apps.twittah.helpers.EndlessScrollListener;
-import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
+import com.codepath.wangela.apps.twittah.fragments.HomeTimelineFragment;
+import com.codepath.wangela.apps.twittah.fragments.MentionsTimelineFragment;
+import com.codepath.wangela.apps.twittah.fragments.TweetsListFragment;
+import com.codepath.wangela.apps.twittah.listeners.SupportFragmentTabListener;
 import com.codepath.wangela.apps.twittah.models.Tweet;
+import com.codepath.wangela.apps.twittah.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import eu.erikw.PullToRefreshListView;
-import eu.erikw.PullToRefreshListView.OnRefreshListener;
+public class TimelineActivity extends ActionBarActivity {
 
-public class TimelineActivity extends Activity {
-    private TwitterClient client;
-    private ArrayList<Tweet> tweets;
-    private ArrayAdapter<Tweet> aTweets;
-    private PullToRefreshListView lvTweets;
-    private String aMaxId = "0";
-    private String aSinceId = "0";
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_timeline);
+		setupTabs();
+	}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
-        client = TwitterApplication.getRestClient();
+	private void setupTabs() {
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setDisplayShowTitleEnabled(true);
 
-        lvTweets = (PullToRefreshListView) findViewById(R.id.lvTweets);
-        tweets = new ArrayList<Tweet>();
-        aTweets = new TweetArrayAdapter(this, tweets);
-        lvTweets.setAdapter(aTweets);
+		Tab tab1 = actionBar
+				.newTab()
+				.setText("HOME")
+				.setIcon(R.drawable.ic_home)
+				.setTag("HomeTimelineFragment")
+				.setTabListener(
+						new SupportFragmentTabListener<HomeTimelineFragment>(
+								R.id.flTimeline, this, "home",
+								HomeTimelineFragment.class));
 
-        // Attach the listener to the AdapterView onCreate
-        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to your
-                // AdapterView
-                populateTimeline("MORE");
+		actionBar.addTab(tab1);
+		actionBar.selectTab(tab1);
 
-            }
-        });
+		Tab tab2 = actionBar
+				.newTab()
+				.setText("MENTIONS")
+				.setIcon(R.drawable.ic_mentions)
+				.setTag("MentionsTimelineFragment")
+				.setTabListener(
+						new SupportFragmentTabListener<MentionsTimelineFragment>(
+								R.id.flTimeline, this, "mentions",
+								MentionsTimelineFragment.class));
+		actionBar.addTab(tab2);
+	}
 
-        // Set a listener to be invoked when the list should be refreshed.
-        lvTweets.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Your code to refresh the list contents
-                // Make sure you call listView.onRefreshComplete()
-                // once the loading is done. This can be done from here or any
-                // place such as when the network request has completed
-                // successfully.
-                populateTimeline("REFRESH");
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-                lvTweets.onRefreshComplete();
-            }
-        });
-        
-        lvTweets.setOnItemClickListener(new OnItemClickListener() {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case R.id.miTop:
+			onTop(item);
+			return true;
+			// Respond to the action bar's Tweet button
+		case R.id.miProfile:
+			onProfileView(item);
+			return true;
+		case R.id.miCompose:
+			onCompose(item);
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
-                Intent i = new Intent(getApplicationContext(),
-                        TweetDetailActivity.class);
-                Tweet selectedTweet = aTweets.getItem(position);
-                i.putExtra("tweet", selectedTweet);
-                startActivity(i);
-            }
+	public void onCompose(MenuItem mi) {
+		Intent i = new Intent(this, ComposeActivity.class);
+		startActivityForResult(i, 18);
+	}
 
-        });
+	public void onTop(MenuItem mi) {
+		String fragTag = (String) getSupportActionBar().getSelectedTab()
+				.getTag();
+		TweetsListFragment fragmentTimeline = (TweetsListFragment) getSupportFragmentManager()
+				.findFragmentByTag(fragTag);
+		fragmentTimeline.toTop();
+	}
 
-        aTweets.clear();
-        populateTimeline("LOAD");
+	public void onProfileView(MenuItem mi) {
+		TwitterApplication.getRestClient().getMyProfile(
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onSuccess(JSONObject json) {
+						User u = User.fromJson(json);
+						Intent i = new Intent(getApplicationContext(),
+								ProfileActivity.class);
+						i.putExtra("User", u);
+						startActivity(i);
+					}
 
-        Log.d("DEBUG", aMaxId);
-    }
+					public void onFailure(Throwable e) {
+						Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+					}
+				});
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	public void onShowDetailedTweet(Tweet selectedTweet) {
+		Intent i = new Intent(this, TweetDetailActivity.class);
+		i.putExtra("tweet", selectedTweet);
+		startActivity(i);
+	}
 
-    /*
-     * public void populateTimeline(String since_id, String max_id) {
-     * client.getHomeTimeline(new JsonHttpResponseHandler() {
-     * @Override public void onSuccess(JSONArray array) {
-     * aTweets.addAll(Tweet.fromJsonArray(array)); }
-     * @Override public void onFailure(Throwable e, String s) { Log.d("ERROR",
-     * e.toString()); Log.d("ERROR", s); } }, since_id, max_id); }
-     */
-
-    public void populateTimeline(String code) {
-        client.getHomeTimeline(code, aSinceId, aMaxId, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONArray array) {
-                aTweets.addAll(Tweet.fromJsonArray(array));
-                aTweets.sort(new Comparator<Tweet>() {
-                    public int compare(Tweet object1, Tweet object2) {
-                        return object2.getId().compareTo(object1.getId());
-                    }
-                });
-                aTweets.notifyDataSetChanged();
-                if (aTweets.getCount() > 0) {
-                    int listSize = aTweets.getCount();
-                    listSize--;
-                    aSinceId = aTweets.getItem(0).getId();
-                    aMaxId = aTweets.getItem(listSize).getId();
-                    Log.d("DEBUG", aTweets.toString());
-                }
-            }
-
-            public void onFailure(Throwable e) {
-                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
-            }
-        });
-    }
-
-    public void onCompose(MenuItem mi) {
-        Intent i = new Intent(this, ComposeActivity.class);
-        startActivityForResult(i, 18);
-    }
-
-    public void onTop(MenuItem mi) {
-        lvTweets.setSelection(0);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // REQUEST_CODE is defined above
-        if (resultCode == RESULT_OK && requestCode == 18) {
-            populateTimeline("REFRESH");
-            aSinceId = aTweets.getItem(0).getId();
-        }
-    }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// REQUEST_CODE is defined above
+		if (resultCode == RESULT_OK && requestCode == 18) {
+			// TODO add newly composed tweet to array and call
+			// populateTimeline("REFRESH");
+		}
+	}
 }

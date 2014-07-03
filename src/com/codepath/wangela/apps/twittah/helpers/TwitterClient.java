@@ -1,4 +1,3 @@
-
 package com.codepath.wangela.apps.twittah.helpers;
 
 import org.json.JSONObject;
@@ -7,11 +6,17 @@ import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.codepath.oauth.OAuthBaseClient;
+import com.codepath.wangela.apps.twittah.R;
+import com.codepath.wangela.apps.twittah.models.User;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /*
  * 
@@ -26,75 +31,140 @@ import com.loopj.android.http.RequestParams;
  * 
  */
 public class TwitterClient extends OAuthBaseClient {
-    public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change
-                                                                                // this
-    public static final String REST_URL = "https://api.twitter.com/1.1"; // Change
-                                                                         // this,
-                                                                         // base
-                                                                         // API
-                                                                         // URL
-    public static final String REST_CONSUMER_KEY = "WN3SbP10m3qK1prPF14gd9t3j"; // Change
-                                                                                // this
-    public static final String REST_CONSUMER_SECRET = "7J24pQ6iQuvvfJb8ITZJwvf8DypaIjuW8m1jCKTcVspjCH2ybC"; // Change
-                                                                                                            // this
-    public static final String REST_CALLBACK_URL = "oauth://cptwittahtweets"; // Change
-                                                                              // this
-                                                                              // (here
-                                                                              // and
-                                                                              // in
-                                                                              // manifest)
+	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change
+																				// this
+	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change
+																			// this,
+																			// base
+																			// API
+																			// URL
+	public static final String REST_CONSUMER_KEY = "WN3SbP10m3qK1prPF14gd9t3j"; // Change
+																				// this
+	public static final String REST_CONSUMER_SECRET = "7J24pQ6iQuvvfJb8ITZJwvf8DypaIjuW8m1jCKTcVspjCH2ybC"; // Change
+																											// this
+	public static final String REST_CALLBACK_URL = "oauth://cptwittahtweets"; // Change
+																				// this
+																				// (here
+																				// and
+																				// in
+																				// manifest)
+																				// private
+																				// String
+																				// userScreenname
+																				// =
+																				// "";
 
-    public TwitterClient(Context context) {
-        super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET,
-                REST_CALLBACK_URL);
-    }
+	public TwitterClient(Context context) {
+		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY,
+				REST_CONSUMER_SECRET, REST_CALLBACK_URL);
+		// getUserScreenname();
+	}
 
-    public void getHomeTimeline(String code, String sinceId,
-            String maxId, AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("statuses/home_timeline.json");
-        RequestParams params = new RequestParams();
-        if (code == "LOAD") { // initial load
-            params = null;
-        } else if (code == "MORE") { // load more / pagination
-            params.put("max_id", maxId);
-        } else if (code == "REFRESH") { // refresh timeline
-            params.put("since_id", sinceId);
-        } else {
-            Log.d("ERROR", "code has invalid value of " + code);
-        }
-        client.get(apiUrl, params, handler);
-    }
+	// public void getTimeline(String code, String timelineType, String sinceId,
+	// String maxId, AsyncHttpResponseHandler handler) {
+	// RequestParams params = new RequestParams();
+	// String apiUrl = "";
+	// if (timelineType == "HOME") {
+	// apiUrl = getApiUrl("statuses/home_timeline.json");
+	// } else if (code == "MENTIONS") {
+	// apiUrl = getApiUrl("statuses/mentions_timeline.json");
+	// } else if (code == "USER") {
+	// apiUrl = getApiUrl("statuses/user_timeline.json");
+	// params.put("user_id", userScreenname);
+	// }
+	// if (code == "LOAD") { // initial load
+	// params = null;
+	// } else if (code == "MORE") { // load more / pagination
+	// params.put("max_id", maxId);
+	// } else if (code == "REFRESH") { // refresh timeline
+	// params.put("since_id", sinceId);
+	// } else {
+	// Log.d("ERROR", "code has invalid value of " + code);
+	// }
+	// client.get(apiUrl, params, handler);
+	// }
 
-    public void getUserProfile(AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("account/verify_credentials.json");
-        client.get(apiUrl, handler);
-    }
+	public void getHomeTimeline(String code, String sinceId, String maxId,
+			AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/home_timeline.json");
+		RequestParams params = new RequestParams();
+		if (code == "LOAD") { // initial load
+			params = null;
+		} else if (code == "MORE") { // load more / pagination
+			params.put("max_id", maxId);
+		} else if (code == "REFRESH") { // refresh timeline
+			params.put("since_id", sinceId);
+		} else {
+			Log.d("ERROR", "code has invalid value of " + code);
+		}
+		client.get(apiUrl, params, handler);
+	}
 
-    public void postTweet(String status, RequestParams params, AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("statuses/update.json");
-        
-        params.put("status", status);
+	public void getMentionsTimeline(String code, String sinceId, String maxId,
+			AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		if (code == "LOAD") { // initial load
+			params = null;
+		} else if (code == "MORE") { // load more / pagination
+			params.put("max_id", maxId);
+		} else if (code == "REFRESH") { // refresh timeline
+			params.put("since_id", sinceId);
+		} else {
+			Log.d("ERROR", "code has invalid value of " + code);
+		}
+		client.get(apiUrl, params, handler);
+	}
 
-        client.post(apiUrl, params, handler);
-    }
+	public void getUserTimeline(String screenname, String code, String sinceId, String maxId,
+			AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("screen_name", screenname);
+		if (code == "LOAD") { // initial load
+			params = null;
+		} else if (code == "MORE") { // load more / pagination
+			params.put("max_id", maxId);
+		} else if (code == "REFRESH") { // refresh timeline
+			params.put("since_id", sinceId);
+		} else {
+			Log.d("ERROR", "code has invalid value of " + code);
+		}
+		client.get(apiUrl, params, handler);
+	}
 
-    // CHANGE THIS
-    // DEFINE METHODS for different API endpoints here
-    /*
-     * public void getInterestingnessList(AsyncHttpResponseHandler handler) {
-     * String apiUrl =
-     * getApiUrl("?nojsoncallback=1&method=flickr.interestingness.getList"); //
-     * Can specify query string params directly or through RequestParams.
-     * RequestParams params = new RequestParams(); params.put("format", "json");
-     * client.get(apiUrl, params, handler); }
-     */
+	// private void getUserScreenname() {
+	// getUserProfile(new JsonHttpResponseHandler() {
+	// @Override
+	// public void onSuccess(org.json.JSONObject userObject) {
+	// User user = User.fromJson(userObject);
+	// userScreenname = user.getScreenname();
+	// };
+	//
+//	 @Override
+//	 public void onFailure(Throwable e, String s) {
+//	 Log.d("ERROR", e.toString());
+//	 Log.d("ERROR", s);
+//	 };
+//	 });
+	// }
 
-    /*
-     * 1. Define the endpoint URL with getApiUrl and pass a relative path to the
-     * endpoint i.e getApiUrl("statuses/home_timeline.json"); 2. Define the
-     * parameters to pass to the request (query or body) i.e RequestParams
-     * params = new RequestParams("foo", "bar"); 3. Define the request method
-     * and make a call to the client i.e client.get(apiUrl, params, handler);
-     * i.e client.post(apiUrl, params, handler);
-     */
+	public void getMyProfile(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("account/verify_credentials.json");
+		client.get(apiUrl, handler);
+	}
+
+	public void getUserProfile(String screenname, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("users/lookup.json");
+		RequestParams params = new RequestParams();
+		params.put("screen_name", screenname);
+		client.get(apiUrl, params, handler);
+	}
+	public void postTweet(String status, RequestParams params,
+			AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/update.json");
+		params.put("status", status);
+		client.post(apiUrl, params, handler);
+	}
+
 }

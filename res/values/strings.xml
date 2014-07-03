@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_photos">Flickr Photos</string>
     <string name="login_label">Connect to Twitter</string>
-    <string name="title_activity_timeline">Recent Tweets</string>
+    <string name="title_activity_timeline">recent tweets</string>
     <string name="foo_label">\@foo</string>
     <string name="tweetbody_label">Tweet body</string>
     <string name="timestamp_label">timestamp ago</string>
@@ -18,5 +18,9 @@
     <string name="top_label">Top</string>
     <string name="title_activity_tweet_detail"></string>
     <string name="label_140">140</string>
+    <string name="home">HOME</string>
+    <string name="mentions">MENTIONS</string>
+    <string name="profile">Profile</string>
+    <string name="title_activity_profile">your profile</string>
 
 </resources>
