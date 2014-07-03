@@ -3,8 +3,7 @@
 twittah is an Android client for Twitter. This is a project for the CodePath Intro to Android Bootcamp which you can sign up for at (http://codepath.com/androidbootcamp).
 
 
-Time spent: 31 hours spent in week 1
-            19 hours spent in week 2
+Time spent: 31 hours spent in week 1, 39 hours spent in week 2
 
 Required user stories:
 
@@ -52,13 +51,15 @@ Optional user stories:
 
 Notes:
 
-I had so much debugging related to the pagination using Twitter API params of since ID and max ID!
-That took all my time, so will plan to implement offline persistence in a future week.
+Had to disable ActionBar custom styling theme in order to prevent app crashes at login. Will revisit theme syntax to correct.
 
 Optimized pagination performance with ViewHolder pattern.
 
 Walkthrough of all user stories:
+Week 2 implementation:
+![Video walkthrough](anim_twittah2.gif)
 
+Week 1 implementation:
 ![Video Walkthrough](anim_twittah.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
