@@ -3,7 +3,7 @@
 twittah is an Android client for Twitter. This is a project for the CodePath Intro to Android Bootcamp which you can sign up for at (http://codepath.com/androidbootcamp).
 
 
-Time spent: 31 hours spent in week 1, 39 hours spent in week 2
+Time spent: 31 hours spent in week 1, 49 hours spent in week 2
 
 ## Required user stories:
 
@@ -23,7 +23,7 @@ Time spent: 31 hours spent in week 1, 39 hours spent in week 2
  * [x] User can switch between Timeline and Mention views using tabs.
     * [x] User can view their home timeline tweets.
     * [x] User can view the recent mentions of their username.
-    * [ ] User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
+    * [x] User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
     * [x] Optional: Implement tabs in a gingerbread-compatible approach
  * [x] User can navigate to view their own profile
     * [x] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
