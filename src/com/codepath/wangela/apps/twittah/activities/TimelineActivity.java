@@ -1,11 +1,14 @@
 
 package com.codepath.wangela.apps.twittah.activities;
 
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,6 +16,8 @@ import com.codepath.wangela.apps.twittah.R;
 import com.codepath.wangela.apps.twittah.fragments.HomeTimelineFragment;
 import com.codepath.wangela.apps.twittah.fragments.MentionsTimelineFragment;
 import com.codepath.wangela.apps.twittah.listeners.SupportFragmentTabListener;
+import com.codepath.wangela.apps.twittah.models.User;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends ActionBarActivity {
  
@@ -88,7 +93,21 @@ public class TimelineActivity extends ActionBarActivity {
     }
     
     public void onProfile(MenuItem mi) {
-    	// TODO launch PRofile activity
+		TwitterApplication.getRestClient().getMyProfile(
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onSuccess(JSONObject json) {
+						User me = User.fromJson(json);
+						Intent i = new Intent(getApplicationContext(),
+								ProfileActivity.class);
+						i.putExtra("User", me);
+						startActivity(i);
+					}
+
+					public void onFailure(Throwable e) {
+						Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+					}
+				});
     }
 
     @Override
