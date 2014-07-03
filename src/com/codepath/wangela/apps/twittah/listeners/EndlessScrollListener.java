@@ -1,5 +1,5 @@
 
-package com.codepath.wangela.apps.twittah.helpers;
+package com.codepath.wangela.apps.twittah.listeners;
 
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;

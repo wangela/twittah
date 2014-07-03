@@ -1,13 +1,18 @@
 
 package com.codepath.wangela.apps.twittah.activities;
 
-import com.codepath.wangela.apps.twittah.R;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.codepath.wangela.apps.twittah.R;
+import com.codepath.wangela.apps.twittah.fragments.HomeTimelineFragment;
+import com.codepath.wangela.apps.twittah.fragments.MentionsTimelineFragment;
+import com.codepath.wangela.apps.twittah.listeners.SupportFragmentTabListener;
 
 public class TimelineActivity extends ActionBarActivity {
  
@@ -15,7 +20,39 @@ public class TimelineActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        setupTabs();
     }
+    
+	private void setupTabs() {
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setDisplayShowTitleEnabled(true);
+
+		Tab tab1 = actionBar
+				.newTab()
+				.setText("HOME")
+				.setIcon(R.drawable.ic_home)
+				.setTag("HomeTimelineFragment")
+				.setTabListener(
+						new SupportFragmentTabListener<HomeTimelineFragment>(
+								R.id.flTimeline, this, "home",
+								HomeTimelineFragment.class));
+
+		actionBar.addTab(tab1);
+		actionBar.selectTab(tab1);
+
+		Tab tab2 = actionBar
+				.newTab()
+				.setText("MENTIONS")
+				.setIcon(R.drawable.ic_mentions)
+				.setTag("MentionsTimelineFragment")
+				.setTabListener(
+						new SupportFragmentTabListener<MentionsTimelineFragment>(
+								R.id.flTimeline, this, "mentions",
+								MentionsTimelineFragment.class));
+		actionBar.addTab(tab2);
+	}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

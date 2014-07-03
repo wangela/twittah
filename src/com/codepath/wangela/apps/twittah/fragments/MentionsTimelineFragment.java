@@ -6,21 +6,13 @@ import org.json.JSONArray;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.wangela.apps.twittah.activities.TwitterApplication;
 import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
-import com.codepath.wangela.apps.twittah.listeners.EndlessScrollListener;
 import com.codepath.wangela.apps.twittah.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import eu.erikw.PullToRefreshListView.OnRefreshListener;
-
-public class HomeTimelineFragment extends TweetsListFragment {
+public class MentionsTimelineFragment extends TweetsListFragment {
 	private TwitterClient client;
 	private String aMaxId = "0";
 	private String aSinceId = "0";
@@ -40,7 +32,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
 		// ProgressBar pb = (ProgressBar) getView().findViewById(R.id.pbHome);
 		// pb.bringToFront();
 		// pb.setVisibility(ProgressBar.VISIBLE);
-		client.getHomeTimeline(code, aSinceId, aMaxId, new JsonHttpResponseHandler() {
+		client.getMentionsTimeline(code, aSinceId, aMaxId, new JsonHttpResponseHandler() {
 					@Override
 					public void onSuccess(JSONArray array) {
 						addAll(Tweet.fromJsonArray(array));

@@ -19,8 +19,8 @@ import android.widget.ArrayAdapter;
 import com.codepath.wangela.apps.twittah.R;
 import com.codepath.wangela.apps.twittah.activities.TwitterApplication;
 import com.codepath.wangela.apps.twittah.adapters.TweetArrayAdapter;
-import com.codepath.wangela.apps.twittah.helpers.EndlessScrollListener;
 import com.codepath.wangela.apps.twittah.helpers.TwitterClient;
+import com.codepath.wangela.apps.twittah.listeners.EndlessScrollListener;
 import com.codepath.wangela.apps.twittah.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 

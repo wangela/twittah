@@ -115,7 +115,7 @@ public class ComposeActivity extends Activity {
     }
 
     public void loadUser() {
-        client.getUserProfile(new JsonHttpResponseHandler() {
+        client.getMyProfile(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(org.json.JSONObject userObject) {
                 user = User.fromJson(userObject);
