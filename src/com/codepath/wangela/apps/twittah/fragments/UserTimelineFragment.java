@@ -1,5 +1,7 @@
 package com.codepath.wangela.apps.twittah.fragments;
 
+import java.util.Comparator;
+
 import org.json.JSONArray;
 
 import android.os.Bundle;
@@ -23,42 +25,42 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class UserTimelineFragment extends TweetsListFragment {
 	private String screenname;
+	private PullToRefreshListView lvTweets;
 	private String aMaxId = "0";
 	private String aSinceId = "0";
 	private View v;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		screenname = getArguments().getString("screen_name", "");
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		v = inflater.inflate(R.layout.fragment_tweets_list, container,
+		View v = inflater.inflate(R.layout.fragment_tweets_list, container,
 				false);
 		setupViews(v);
-		return v;
-	}
-	
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
 		ProgressBar pb = (ProgressBar) v.findViewById(R.id.pbTimeline);
-		pb.bringToFront();
 		pb.setVisibility(ProgressBar.VISIBLE);
 		clear();
+//		if (Tweet.findAll().size() > 0) {
+//		populateFromDb();
+//	} else {
 		populateTimeline("LOAD");
+//	}
 		setupListeners();
-		pb.setVisibility(ProgressBar.INVISIBLE);
+		// pb.setVisibility(ProgressBar.INVISIBLE);
+		return v;
 	}
 
+	@Override
 	public void setupViews(View v) {
 		lvTweets = (PullToRefreshListView) v.findViewById(R.id.lvTweets);
 		lvTweets.setAdapter(aTweets);
 	}
-	
+
 	public void setupListeners() {
 		// Attach the listener to the AdapterView onCreate
 		lvTweets.setOnScrollListener(new EndlessScrollListener() {
@@ -67,8 +69,7 @@ public class UserTimelineFragment extends TweetsListFragment {
 				// Triggered only when new data needs to be appended to the list
 				// Add whatever code is needed to append new items to your
 				// AdapterView
-			populateTimeline("MORE");
-
+				populateTimeline("MORE");
 			}
 		});
 
@@ -76,7 +77,7 @@ public class UserTimelineFragment extends TweetsListFragment {
 		lvTweets.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-			populateTimeline("REFRESH");
+				populateTimeline("REFRESH");
 				lvTweets.onRefreshComplete();
 			}
 		});
@@ -86,32 +87,47 @@ public class UserTimelineFragment extends TweetsListFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-//				Intent i = new Intent(getApplicationContext(),
-//						TweetDetailActivity.class);
-//				Tweet selectedTweet = aTweets.getItem(position);
-//				i.putExtra("tweet", selectedTweet);
-//				startActivity(i);
+				// Intent i = new Intent(getApplicationContext(),
+				// TweetDetailActivity.class);
+				// Tweet selectedTweet = aTweets.getItem(position);
+				// i.putExtra("tweet", selectedTweet);
+				// startActivity(i);
 			}
 
 		});
 
 	}
-	
-    public static UserTimelineFragment newInstance(String sn) {
-        UserTimelineFragment userTimeline = new UserTimelineFragment();
-        Bundle args = new Bundle();
-        args.putString("screen_name", sn);
-        userTimeline.setArguments(args);
-        return userTimeline;
-    }
-	
-    public void populateTimeline(String code) {
-    	TwitterApplication.getRestClient().getUserTimeline(screenname, code, aSinceId, aMaxId,
-				new JsonHttpResponseHandler() {
+
+	public static UserTimelineFragment newInstance(String sn) {
+		UserTimelineFragment userTimeline = new UserTimelineFragment();
+		Bundle args = new Bundle();
+		args.putString("screen_name", sn);
+		userTimeline.setArguments(args);
+		return userTimeline;
+	}
+
+	public void populateTimeline(String code) {
+		TwitterApplication.getRestClient().getUserTimeline(screenname, code,
+				aSinceId, aMaxId, new JsonHttpResponseHandler() {
 					@Override
 					public void onSuccess(JSONArray array) {
 						addAll(Tweet.fromJsonArray(array));
+						sort(new Comparator<Tweet>() {
+							public int compare(Tweet object1, Tweet object2) {
+								return object2.getTid().compareTo(
+										object1.getTid());
+							}
+						});
+						notifyDataSetChanged();
+						if (getCount() > 0) {
+							int listSize = getCount();
+							listSize--;
+							aSinceId = getItem(0).getTid();
+							aMaxId = getItem(listSize).getTid();
+							Log.d("DEBUG", toString());
+						}
 					}
+
 					@Override
 					public void onFailure(Throwable e, String s) {
 						Log.d("ERROR", e.toString());

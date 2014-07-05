@@ -26,7 +26,7 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 public class TweetsListFragment extends Fragment {
 	private ArrayList<Tweet> tweets;
 	protected ArrayAdapter<Tweet> aTweets;
-	protected PullToRefreshListView lvTweets;
+	private PullToRefreshListView lvTweets;
 
 
 	// private OnClickListener listener;

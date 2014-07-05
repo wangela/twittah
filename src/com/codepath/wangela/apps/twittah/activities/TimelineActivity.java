@@ -41,7 +41,7 @@ public class TimelineActivity extends ActionBarActivity {
 				.setTag("HomeTimelineFragment")
 				.setTabListener(
 						new SupportFragmentTabListener<HomeTimelineFragment>(
-								R.id.flTimeline, this, "home",
+								R.id.flTimeline, this, "HOME",
 								HomeTimelineFragment.class));
 
 		actionBar.addTab(tab1);
@@ -54,7 +54,7 @@ public class TimelineActivity extends ActionBarActivity {
 				.setTag("MentionsTimelineFragment")
 				.setTabListener(
 						new SupportFragmentTabListener<MentionsTimelineFragment>(
-								R.id.flTimeline, this, "mentions",
+								R.id.flTimeline, this, "MENTIONS",
 								MentionsTimelineFragment.class));
 		actionBar.addTab(tab2);
 	}
@@ -90,9 +90,9 @@ public class TimelineActivity extends ActionBarActivity {
 
     public void onTop(MenuItem mi) {
     	// FIXME
-    	String activeTab = getActionBar().getSelectedTab().getTag().toString();
+    	String activeTab = (String) getActionBar().getSelectedTab().getText();
     	TweetsListFragment timeline = (TweetsListFragment) getSupportFragmentManager().findFragmentByTag(activeTab);
-    	// timeline.toTop();
+    	timeline.toTop();
     }
     
     public void onProfile(MenuItem mi) {

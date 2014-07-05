@@ -28,9 +28,9 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class HomeTimelineFragment extends TweetsListFragment {
 	private TwitterClient client;
+	private PullToRefreshListView lvTweets;
 	private String aMaxId = "0";
 	private String aSinceId = "0";
-	private View v;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,29 +41,22 @@ public class HomeTimelineFragment extends TweetsListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		v = inflater.inflate(R.layout.fragment_tweets_list, container,
+		View v = inflater.inflate(R.layout.fragment_tweets_list, container,
 				false);
 		setupViews(v);
-		return v;
-
-	}
-	
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
 		ProgressBar pb = (ProgressBar) v.findViewById(R.id.pbTimeline);
-		pb.bringToFront();
 		pb.setVisibility(ProgressBar.VISIBLE);
 		clear();
 //		if (Tweet.findAll().size() > 0) {
-//			populateFromDb();
-//		} else {
-			populateTimeline("LOAD");
-//		}
+//		populateFromDb();
+//	} else {
+		populateTimeline("LOAD");
+//	}
 		setupListeners();
-		pb.setVisibility(ProgressBar.INVISIBLE);
+		return v;
 	}
 
+	@Override
 	public void setupViews(View v) {
 		lvTweets = (PullToRefreshListView) v.findViewById(R.id.lvTweets);
 		lvTweets.setAdapter(aTweets);
@@ -143,4 +136,8 @@ public class HomeTimelineFragment extends TweetsListFragment {
 		addAll((ArrayList<Tweet>) oldTweets);
 	}
 
+	@Override
+	public void toTop() {
+		lvTweets.setSelection(0);
+	}
 }

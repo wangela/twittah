@@ -48,7 +48,6 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
     	ProgressBar pb = (ProgressBar) findViewById(R.id.pbLogin);
     	pb.setVisibility(ProgressBar.VISIBLE);
         getClient().connect();
-        pb.setVisibility(ProgressBar.INVISIBLE);
     }
 
 }
